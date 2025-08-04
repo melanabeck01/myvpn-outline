@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  outline-server:
+    image: quay.io/outline/shadowbox:stable
+    container_name: outline-server
+    restart: unless-stopped
+    ports:
+      - "443:443"
+      - "8080-8090:8080-8090/tcp"
+      - "8080-8090:8080-8090/udp"
+    volumes:
+      - outline-data:/root/shadowbox
+      - outline-persisted-state:/root/shadowbox/persisted-state
+    environment:
+      - SB_API_URL=https://0.0.0.0:443
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv4.ip_forward=1
+
+  watchtower:
+    image: containrrr/watchtower
+    container_name: outline-watchtower
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --cleanup --interval 3600
+    depends_on:
+      - outline-server
+
+volumes:
+  outline-data:
+  outline-persisted-state:

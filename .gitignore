@@ -1,0 +1,12 @@
+# Temporary files
+*.tmp
+*.log
+
+# VPS credentials
+outline_config*.txt
+
+# Docker volumes
+docker-volumes/
+
+# Local test configs
+.env.local
