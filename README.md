@@ -9,6 +9,11 @@
 curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/install.sh | bash
 ```
 
+### 🔧 Оптимизация VPS (рекомендуется после установки)
+```bash
+curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/vps_optimization.sh | bash
+```
+
 ### Метод 2: Manual Docker Compose
 ```bash
 # Установить Docker
