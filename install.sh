@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Outline VPN Server Auto-Install Script
-# Usage: curl -sSL https://raw.githubusercontent.com/your-repo/myvpn/main/install.sh | bash
+# Usage: curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/install.sh | bash
 
 set -e
 

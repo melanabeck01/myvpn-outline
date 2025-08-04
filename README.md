@@ -6,7 +6,7 @@
 
 ### Метод 1: Автоматический скрипт
 ```bash
-curl -sSL https://raw.githubusercontent.com/your-repo/myvpn/main/install.sh | bash
+curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/install.sh | bash
 ```
 
 ### Метод 2: Manual Docker Compose
@@ -15,8 +15,8 @@ curl -sSL https://raw.githubusercontent.com/your-repo/myvpn/main/install.sh | ba
 apt update && apt install -y docker.io docker-compose
 
 # Скачать конфигурацию
-git clone https://github.com/your-repo/myvpn.git
-cd myvpn
+git clone https://github.com/melanabeck01/myvpn-outline.git
+cd myvpn-outline
 
 # Запустить сервер
 docker-compose up -d
