@@ -2,11 +2,20 @@
 *.tmp
 *.log
 
-# VPS credentials
+# VPS credentials and sensitive data
 outline_config*.txt
+CLAUDE.md
+.spss
+*.key
+*.pem
 
 # Docker volumes
 docker-volumes/
 
 # Local test configs
 .env.local
+.env
+
+# IDE files
+.vscode/
+.idea/
