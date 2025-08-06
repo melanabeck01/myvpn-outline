@@ -14,6 +14,11 @@ curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/inst
 curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/vps_optimization.sh | bash
 ```
 
+### 📋 Получить конфигурацию Outline после оптимизации
+```bash
+curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/get_outline_config.sh | bash
+```
+
 ### Метод 2: Manual Docker Compose
 ```bash
 # Установить Docker
