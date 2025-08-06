@@ -35,23 +35,36 @@ EOF
 
 # 3. Firewall rules (ensure ports are accessible)
 echo "🔥 Configuring firewall..."
-ufw --force reset
-ufw default deny incoming
-ufw default allow outgoing
-ufw allow ssh
-ufw allow 80/tcp
-ufw allow 443/tcp
-
-# Get Outline ports dynamically
-OUTLINE_PORTS=$(docker port shadowbox 2>/dev/null | grep -o '0.0.0.0:[0-9]*' | cut -d: -f2)
-for port in $OUTLINE_PORTS; do
-    echo "Opening port $port for Outline..."
-    ufw allow $port/tcp
-    ufw allow $port/udp
-done
-
-# Enable firewall
-ufw --force enable
+# Only configure if UFW is not already enabled to avoid breaking connections
+if ufw status | grep -q "Status: inactive"; then
+    ufw default deny incoming
+    ufw default allow outgoing
+    ufw allow ssh
+    ufw allow 22/tcp
+    ufw allow 80/tcp
+    ufw allow 443/tcp
+    
+    # Get Outline ports dynamically
+    OUTLINE_PORTS=$(docker port shadowbox 2>/dev/null | grep -o '0.0.0.0:[0-9]*' | cut -d: -f2)
+    for port in $OUTLINE_PORTS; do
+        echo "Opening port $port for Outline..."
+        ufw allow $port/tcp
+        ufw allow $port/udp
+    done
+    
+    # Enable firewall
+    ufw --force enable
+else
+    echo "⚠️  UFW already enabled, skipping reset to prevent connection loss"
+    
+    # Just add Outline ports to existing rules
+    OUTLINE_PORTS=$(docker port shadowbox 2>/dev/null | grep -o '0.0.0.0:[0-9]*' | cut -d: -f2)
+    for port in $OUTLINE_PORTS; do
+        echo "Adding port $port to existing firewall..."
+        ufw allow $port/tcp
+        ufw allow $port/udp
+    done
+fi
 
 # 4. Docker optimization
 echo "🐳 Optimizing Docker..."
@@ -79,14 +92,15 @@ timedatectl set-timezone UTC
 
 # 6. Security hardening
 echo "🔒 Security hardening..."
-# Disable root login via password (keep SSH keys)
-sed -i 's/#PermitRootLogin yes/PermitRootLogin prohibit-password/' /etc/ssh/sshd_config
-sed -i 's/PermitRootLogin yes/PermitRootLogin prohibit-password/' /etc/ssh/sshd_config
-
-# Disable password authentication (uncomment if using SSH keys)
+# SSH hardening (commented out to avoid lockout)
+# Uncomment only if you have SSH keys configured!
+# sed -i 's/#PermitRootLogin yes/PermitRootLogin prohibit-password/' /etc/ssh/sshd_config
+# sed -i 's/PermitRootLogin yes/PermitRootLogin prohibit-password/' /etc/ssh/sshd_config
 # sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+# systemctl restart sshd
 
-systemctl restart sshd
+echo "⚠️  SSH hardening skipped to prevent lockout"
+echo "   Configure SSH keys manually if needed"
 
 # 7. Install useful monitoring tools
 echo "📊 Installing monitoring tools..."
