@@ -15,26 +15,27 @@ curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/inst
 curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/show_config.sh | bash
 ```
 
+### 🔥 Исправить проблемы с подключением Outline Manager
+```bash
+curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/fix_firewall.sh | bash
+```
+**Использовать если**: Manager показывает ошибку подключения к серверу
+
 ---
 
-## 🔧 Альтернативные методы установки
+## 🔧 Дополнительные утилиты
 
-### Метод 1: Базовый автоматический скрипт
+### Подключиться к VPS и установить Outline одной командой
 ```bash
-curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/install.sh | bash
+./connect_vps.sh <IP> <USER> <PASSWORD>
 ```
 
-### Метод 2: Оптимизация VPS (отдельно)
+### Техническая диагностика сервера
 ```bash
-curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/vps_optimization.sh | bash
+curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/get_outline_config.sh | bash
 ```
 
-### Метод 3: Получить конфигурацию (отдельно)
-```bash
-curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/get_manager_config.sh | bash
-```
-
-### Метод 2: Manual Docker Compose
+### Manual Docker Compose установка
 ```bash
 # Установить Docker
 apt update && apt install -y docker.io docker-compose
