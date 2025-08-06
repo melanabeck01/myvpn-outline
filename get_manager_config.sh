@@ -80,11 +80,18 @@ if [ ! -z "$MGMT_PORT" ] && [ ! -z "$EXTERNAL_IP" ]; then
     if [ ! -z "$SERVER_RESPONSE" ]; then
         echo "- Status: Server responding ✅"
         
-        # Try to get API key from container
-        API_KEY=$(docker exec shadowbox cat /root/shadowbox/persisted-state/shadowbox_server_config.json 2>/dev/null | jq -r '.apiUrl' 2>/dev/null | rev | cut -d'/' -f1 | rev 2>/dev/null)
+        # Try to get API key from container (multiple locations)
+        API_KEY=$(docker exec shadowbox cat /opt/outline/persisted-state/shadowbox_server_config.json 2>/dev/null | jq -r '.apiUrl' 2>/dev/null | rev | cut -d'/' -f1 | rev 2>/dev/null)
+        if [ -z "$API_KEY" ] || [ "$API_KEY" = "null" ]; then
+            # Look in other possible locations
+            API_KEY=$(docker exec shadowbox find /opt /root -name "shadowbox_server_config.json" -exec cat {} \; 2>/dev/null | jq -r '.apiUrl' 2>/dev/null | rev | cut -d'/' -f1 | rev 2>/dev/null | head -1)
+        fi
         
-        # Try to get certificate fingerprint
-        CERT_SHA=$(docker exec shadowbox openssl x509 -in /root/shadowbox/persisted-state/shadowbox-selfsigned.crt -noout -fingerprint -sha256 2>/dev/null | cut -d= -f2 | tr -d ':' 2>/dev/null)
+        # Try to get certificate fingerprint (multiple locations)
+        CERT_SHA=$(docker exec shadowbox openssl x509 -in /opt/outline/persisted-state/shadowbox-selfsigned.crt -noout -fingerprint -sha256 2>/dev/null | cut -d= -f2 | tr -d ':' 2>/dev/null)
+        if [ -z "$CERT_SHA" ]; then
+            CERT_SHA=$(docker exec shadowbox find /opt /root -name "shadowbox-selfsigned.crt" -exec openssl x509 -in {} -noout -fingerprint -sha256 \; 2>/dev/null | cut -d= -f2 | tr -d ':' 2>/dev/null | head -1)
+        fi
         
         if [ ! -z "$API_KEY" ] && [ ! -z "$CERT_SHA" ] && [ "$API_KEY" != "null" ]; then
             echo ""
