@@ -14,7 +14,12 @@ curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/inst
 curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/vps_optimization.sh | bash
 ```
 
-### 📋 Получить конфигурацию Outline после оптимизации
+### 📋 Получить конфигурацию для Outline Manager
+```bash
+curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/get_manager_config.sh | bash
+```
+
+### 🔧 Получить техническую конфигурацию сервера
 ```bash
 curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/get_outline_config.sh | bash
 ```
