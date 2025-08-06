@@ -49,6 +49,10 @@ root soft nofile 65536
 root hard nofile 65536
 EOF
 
+# Protect SSH from updates
+echo "🔐 Protecting SSH server from updates..."
+apt-mark hold openssh-server
+
 # Install essential packages
 echo "📦 Installing essential packages..."
 apt update
