@@ -2,26 +2,36 @@
 
 Готовое решение для быстрого развертывания Outline VPN сервера на любом VPS с Ubuntu.
 
-## 🚀 Быстрая установка
+## 🚀 Рекомендуемая установка (ALL-IN-ONE)
 
-### Метод 1: Автоматический скрипт
+### ⭐ Полная установка с оптимизацией и автозапуском
+```bash
+curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/install_complete.sh | bash
+```
+**Включает**: VPS оптимизация → Установка Outline → Автозапуск → Сохранение конфига
+
+### 📋 Показать сохраненную конфигурацию для Outline Manager
+```bash
+curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/show_config.sh | bash
+```
+
+---
+
+## 🔧 Альтернативные методы установки
+
+### Метод 1: Базовый автоматический скрипт
 ```bash
 curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/install.sh | bash
 ```
 
-### 🔧 Оптимизация VPS (рекомендуется после установки)
+### Метод 2: Оптимизация VPS (отдельно)
 ```bash
 curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/vps_optimization.sh | bash
 ```
 
-### 📋 Получить конфигурацию для Outline Manager
+### Метод 3: Получить конфигурацию (отдельно)
 ```bash
 curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/get_manager_config.sh | bash
-```
-
-### 🔧 Получить техническую конфигурацию сервера
-```bash
-curl -sSL https://raw.githubusercontent.com/melanabeck01/myvpn-outline/main/get_outline_config.sh | bash
 ```
 
 ### Метод 2: Manual Docker Compose
